@@ -3,6 +3,7 @@
 
 char input[100];
 int i = 0;
+int error = 0;
 
 void E();
 void EP();
@@ -44,6 +45,9 @@ void TP()
 
 void F()
 {
+    if (error)
+        return;
+
     if (input[i] == '(')
     {
         i++;
@@ -52,10 +56,7 @@ void F()
         if (input[i] == ')')
             i++;
         else
-        {
-            printf("String Rejected\n");
-            return;
-        }
+            error = 1;
     }
     else if (input[i] == 'i' && input[i + 1] == 'd')
     {
@@ -63,7 +64,7 @@ void F()
     }
     else
     {
-        printf("String Rejected\n");
+        error = 1;
     }
 }
 
@@ -81,7 +82,7 @@ int main()
 
     E();
 
-    if (input[i] == '\0')
+    if (error == 0 && input[i] == '\0')
         printf("String Accepted\n");
     else
         printf("String Rejected\n");
